@@ -24,7 +24,7 @@ class CategoryRequest extends FormRequest
     {
         return [
             'name' => $this->route('id') ? 'required|unique:categories,name,' . $this->route('id') : 'required|unique:categories,name',
-            'description' => 'required|string',
+            'description' => 'nullable|string',
         ];
     }
 }

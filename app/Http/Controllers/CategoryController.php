@@ -10,9 +10,8 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        return view('category.index', [
-            'category' => Category::latest()->get()
-        ]);
+        $categories = Category::latest()->get();
+        return view('category.index', compact('categories'));
     }
 
     public function create()
@@ -23,27 +22,48 @@ class CategoryController extends Controller
 
     public function store(CategoryRequest $request)
     {
-        Category::create($request->validated());
+        Category::create($categoryRequest->validated());
 
         return redirect()->route('category.index');
     }
 
-    public function edit(Category $category)
+    public function edit($id)
     {
-        return view('category.edit', compact('category'));
-    }
+        $category = Category::find($id);
 
-    public function update(CategoryRequest $request, Category $category)
+        if (!$category) {
+            return abort(404);
+        }
+
+        return view('category.form', [
+            'category' => $category
+        ]);
+    }
+     public function update(CategoryRequest $categoryRequest, $id)
     {
-        $category->update($request->validated());
+        $category = Category::find($id);
+
+        if (!$category) {
+            return abort(404);
+        }
+
+        $category->update($categoryRequest->validated());
 
         return redirect()->route('category.index');
     }
+    
 
-    public function destroy(Category $category)
-    {
-        $category->delete();
+    public function destroy($id)
+        {
+            $category = Category::find($id);
 
-        return back();
+            if (!$category) {
+                return abort(404);
+            }
+
+            $category->delete();
+
+            return redirect()->route('category.index')->with('success', 'Category deleted successfully');
+        }
+
     }
-}

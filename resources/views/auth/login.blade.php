@@ -20,7 +20,17 @@
             <h1 class="text-2xl font-semibold">Welcome back</h1>
             <p class="text-gray-500 text-sm mt-1">Login to your account</p>
         </div>
-
+        <div>
+            @if ($errors->any())
+                <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 border border-red-200" role="alert">
+                    <ul class="mt-2 list-disc list-inside">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+        </div>
         <!-- FORM -->
         <form class="space-y-4" action="{{ route('login') }}" method="post">
             @csrf

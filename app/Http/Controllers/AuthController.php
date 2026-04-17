@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+
+use Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Http\Middleware\Authenticate;    
 use App\Models\User;
 
 class AuthController extends Controller
@@ -16,6 +19,16 @@ class AuthController extends Controller
     public function login()
     {
         return view('auth.login');
+    }
+
+    public function logout($id)
+    
+    
+        { 
+        auth()->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect ('/login')->with('success', 'You have been logged out.');
     }
 
     public function registerUser(Request $request)
@@ -52,6 +65,7 @@ class AuthController extends Controller
             return back()->with('error', 'Email or password is incorrect');
         }
 
+        Auth::login($user);
         return redirect('/dashboard');
     }
 
