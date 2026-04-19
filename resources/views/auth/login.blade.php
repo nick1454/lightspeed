@@ -11,7 +11,6 @@
 <body class="bg-gray-100">
 
 <div class="min-h-screen flex items-center justify-center px-4">
-
     <!-- CARD -->
     <div class="w-full max-w-md bg-white rounded-xl shadow-md p-6 space-y-6">
 
@@ -21,10 +20,28 @@
             <p class="text-gray-500 text-sm mt-1">Login to your account</p>
         </div>
 
+        @if (session()->has('error'))
+        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 border border-red-200" role="alert">
+            <ul class="mt-2 list-disc list-inside">
+                <li>{{ session('error') }}</li>
+            </ul>
+        </div>
+            @endif
+        <div>
+            @if ($errors->any())
+                <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 border border-red-200" role="alert">
+                    <ul class="mt-2 list-disc list-inside">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+        </div>
+
         <!-- FORM -->
         <form class="space-y-4" action="{{ route('login') }}" method="post">
             @csrf
-
             <!-- EMAIL -->
             <div>
                 <label class="block text-sm font-medium text-gray-700">

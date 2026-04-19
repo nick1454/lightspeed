@@ -52,6 +52,7 @@ class AuthController extends Controller
             return back()->with('error', 'Email or password is incorrect');
         }
 
+        auth()->login($user);
         return redirect('/dashboard');
     }
 

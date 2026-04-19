@@ -70,6 +70,9 @@
                     <a class="block py-1 text-sm text-gray-600 hover:text-black" href="{{ route('category.list') }}">Categories</a>
                     <a class="block py-1 text-sm text-gray-600 hover:text-black" href="{{ route('subcategory.list') }}">Subcategories</a>
                     <a class="block py-1 text-sm text-gray-600 hover:text-black" href="{{ route('unit.list') }}">Units</a>
+                    <a class="block py-1 text-sm text-gray-600 hover:text-black" href="{{ route('brand.list') }}">Brands</a>
+                    <a class="block py-1 text-sm text-gray-600 hover:text-black" href="{{ route('size.list') }}">Sizes</a>
+                    <a class="block py-1 text-sm text-gray-600 hover:text-black" href="{{ route('vendor.list') }}">Vendors</a>
                 </div>
             </div>
 

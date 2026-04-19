@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UnitController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SubCategoryController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -51,6 +53,27 @@ Route::get('/subcategory/list', [SubCategoryController::class, 'index'])->name('
 Route::get('/subcategory/{id}/form', [SubCategoryController::class, 'edit'])->name('subcategory.edit');
 Route::post('/subcategory/{id}/update', [SubCategoryController::class, 'update'])->name('subcategory.update');
 Route::delete('/subcategory/{id}/destroy', [SubCategoryController::class, 'destroy'])->name('subcategory.destroy');
+
+Route::post('/brand/store', [BrandController::class, 'store'])->name('brand.store');
+Route::get('/brand/form', [BrandController::class, 'create'])->name('brand.create');
+Route::get('/brand/list', [BrandController::class, 'index'])->name('brand.list');
+Route::get('/brand/{id}/form', [BrandController::class, 'edit'])->name('brand.edit');
+Route::post('/brand/{id}/update', [BrandController::class, 'update'])->name('brand.update');
+Route::delete('/brand/{id}/destroy', [BrandController::class, 'destroy'])->name('brand.destroy');
+
+Route::post('/size/store', [SizeController::class, 'store'])->name('size.store');
+Route::get('/size/form', [SizeController::class, 'create'])->name('size.create');
+Route::get('/size/list', [SizeController::class, 'index'])->name('size.list');
+Route::get('/size/{id}/form', [SizeController::class, 'edit'])->name('size.edit');
+Route::post('/size/{id}/update', [SizeController::class, 'update'])->name('size.update');
+Route::delete('/size/{id}/destroy', [SizeController::class, 'destroy'])->name('size.destroy');
+
+Route::post('/vendor/store', [VendorController::class, 'store'])->name('vendor.store');
+Route::get('/vendor/form', [VendorController::class, 'create'])->name('vendor.create');
+Route::get('/vendor/list', [VendorController::class, 'index'])->name('vendor.list');
+Route::get('/vendor/{id}/form', [VendorController::class, 'edit'])->name('vendor.edit');
+Route::post('/vendor/{id}/update', [VendorController::class, 'update'])->name('vendor.update');
+Route::delete('/vendor/{id}/destroy', [VendorController::class, 'destroy'])->name('vendor.destroy');
 
 
 

@@ -10,4 +10,9 @@ class Category extends Model
     {
         return $this->hasMany(Subcategory::class);
     }
+
+    public static function getList()
+    {
+        return self::latest()->select('id', 'name')->get();
+    }
 }

@@ -105,6 +105,16 @@ document.addEventListener('click', function(e) {
         document.getElementById('avatarCaret').classList.remove('rotate-180');
     }
 });
+
+
+function deleteItem(name,route) {
+    console.log('reaching');
+    if (confirm('Are you sure you want to delete unit "' + name + '"?')) {
+        document.getElementById('delete-form').action = route;
+        document.getElementById('delete-form').submit();
+    }
+}
+
 </script>
 
 @yield('scripts')
