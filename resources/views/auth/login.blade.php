@@ -26,7 +26,7 @@
                 <li>{{ session('error') }}</li>
             </ul>
         </div>
-            @endif
+        @endif
         <div>
             @if ($errors->any())
                 <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 border border-red-200" role="alert">
@@ -38,7 +38,6 @@
                 </div>
             @endif
         </div>
-
         <!-- FORM -->
         <form class="space-y-4" action="{{ route('login') }}" method="post">
             @csrf

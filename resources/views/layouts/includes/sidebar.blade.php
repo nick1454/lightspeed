@@ -73,6 +73,7 @@
                     <a class="block py-1 text-sm text-gray-600 hover:text-black" href="{{ route('brand.list') }}">Brands</a>
                     <a class="block py-1 text-sm text-gray-600 hover:text-black" href="{{ route('size.list') }}">Sizes</a>
                     <a class="block py-1 text-sm text-gray-600 hover:text-black" href="{{ route('vendor.list') }}">Vendors</a>
+                    <a class="block py-1 text-sm text-gray-600 hover:text-black" href="{{ route('warehouse.list') }}">Warehouses</a>
                 </div>
             </div>
 

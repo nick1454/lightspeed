@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryRequest extends FormRequest
+class WarehouseRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +23,11 @@ class CategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => $this->route('id') ? 'required|unique:categories,name,' . $this->route('id') : 'required|unique:categories,name',
+            'name' => 'required|string|max:255',
+            'location' => 'required|string|max:255',
             'description' => 'nullable|string',
+            'address' => 'required|string|max:255',
+            'contact' => 'required|string|max:255',
         ];
     }
 }

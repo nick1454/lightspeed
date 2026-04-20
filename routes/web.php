@@ -8,51 +8,61 @@ use App\Http\Controllers\UnitController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
 
-Route::get('/', function () {
-    return view('auth.login');
-});
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login');
+
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/register', function () {
     return view('auth.register');
 })->name('register');
 
-Route::post('/register', [AuthController::class, 'registerUser'])->name('register.user');
-Route::post('/login', [AuthController::class, 'authenticate'])->name('login');
-
-Route::post('/unit/store', [UnitController::class, 'store'])->name('unit.store');
-Route::get('/unit/form', [UnitController::class, 'create'])->name('unit.create');
-Route::get('/unit/list', [UnitController::class, 'index'])->name('unit.list');
-Route::get('/unit/{id}/form', [UnitController::class, 'edit'])->name('unit.edit');
-Route::post('/unit/{id}/update', [UnitController::class, 'update'])->name('unit.update');
-Route::delete('/unit/{id}/destroy', [UnitController::class, 'destroy'])->name('unit.destroy');
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
+Route::middleware('guest')->group(function () {
+    Route::post('/register', [AuthController::class, 'registerUser'])->name('register.user');
+    Route::post('/login', [AuthController::class, 'authenticate'])->name('login');
+    Route::get('/', function () {
+        return view('auth.login');
+    });
+    Route::get('/login', function () {
+        return view('auth.login');
+    })->name('login');
 });
-Route::get('/materials/list', function () {
-    return view('materials.index');
-})->name('materials.list');
+Route::middleware('auth')->group(function () {
+    Route::post('/unit/store', [UnitController::class, 'store'])->name('unit.store');
+    Route::get('/unit/form', [UnitController::class, 'create'])->name('unit.create');
 
-Route::get('/materials/form', function () {
-    return view('materials.form');
-})->name('materials.form');
+    Route::get('/unit/list', [UnitController::class, 'index'])->name('unit.list');
+    Route::get('/unit/{id}/form', [UnitController::class, 'edit'])->name('unit.edit');
+    Route::post('/unit/{id}/update', [UnitController::class, 'update'])->name('unit.update');
+    Route::delete('/unit/{id}/destroy', [UnitController::class, 'destroy'])->name('unit.destroy');
 
-Route::post('/category/store', [CategoryController::class, 'store'])->name('category.store');
-Route::get('/category/form', [CategoryController::class, 'create'])->name('category.create');
-Route::get('/category/list', [CategoryController::class, 'index'])->name('category.list');
-Route::get('/category/{id}/form', [CategoryController::class, 'edit'])->name('category.edit');
-Route::post('/category/{id}/update', [categoryController::class, 'update'])->name('category.update');
-Route::delete('/category/{id}/destroy', [categoryController::class, 'destroy'])->name('category.destroy');
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    });
+    Route::get('/materials/list', function () {
+        return view('materials.index');
+    })->name('materials.list');
 
-Route::post('/subcategory/store', [SubCategoryController::class, 'store'])->name('subcategory.store');
-Route::get('/subcategory/form', [SubCategoryController::class, 'create'])->name('subcategory.create');
-Route::get('/subcategory/list', [SubCategoryController::class, 'index'])->name('subcategory.list');
-Route::get('/subcategory/{id}/form', [SubCategoryController::class, 'edit'])->name('subcategory.edit');
-Route::post('/subcategory/{id}/update', [SubCategoryController::class, 'update'])->name('subcategory.update');
-Route::delete('/subcategory/{id}/destroy', [SubCategoryController::class, 'destroy'])->name('subcategory.destroy');
+    Route::get('/materials/form', function () {
+        return view('materials.form');
+    })->name('materials.form');
+
+    Route::post('/category/store', [CategoryController::class, 'store'])->name('category.store');
+    Route::get('/category/form', [CategoryController::class, 'create'])->name('category.create');
+    Route::get('/category/list', [CategoryController::class, 'index'])->name('category.list');
+    Route::get('/category/{id}/form', [CategoryController::class, 'edit'])->name('category.edit');
+    Route::post('/category/{id}/update', [CategoryController::class, 'update'])->name('category.update');
+    Route::delete('/category/{id}/destroy', [CategoryController::class, 'destroy'])->name('category.destroy');
+    Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
+
+    Route::get('/subcategory/list', function () {
+        return view('subcategory.index');
+    })->name('subcategory.list');
+
+    Route::get('/subcategory/form', function () {
+        return view('subcategory.form');
+    })->name('subcategory.form');
+});
+
 
 Route::post('/brand/store', [BrandController::class, 'store'])->name('brand.store');
 Route::get('/brand/form', [BrandController::class, 'create'])->name('brand.create');
@@ -75,6 +85,18 @@ Route::get('/vendor/{id}/form', [VendorController::class, 'edit'])->name('vendor
 Route::post('/vendor/{id}/update', [VendorController::class, 'update'])->name('vendor.update');
 Route::delete('/vendor/{id}/destroy', [VendorController::class, 'destroy'])->name('vendor.destroy');
 
+Route::post('/warehouse/store', [WarehouseController::class, 'store'])->name('warehouse.store');
+Route::get('/warehouse/form', [WarehouseController::class, 'create'])->name('warehouse.create');
+Route::get('/warehouse/list', [WarehouseController::class, 'index'])->name('warehouse.list');
+Route::get('/warehouse/{id}/form', [WarehouseController::class, 'edit'])->name('warehouse.edit');
+Route::post('/warehouse/{id}/update', [WarehouseController::class, 'update'])->name('warehouse.update');
+Route::delete('/warehouse/{id}/destroy', [WarehouseController::class, 'destroy'])->name('warehouse.destroy');
 
 
+Route::post('/pomaterial/store', [PomaterialController::class, 'store'])->name('pomaterial.store');
+Route::get('/pomaterial/form', [PomaterialController::class, 'create'])->name('pomaterial.create');
+Route::get('/pomaterial/list', [PomaterialController::class, 'index'])->name('pomaterial.list');
+Route::get('/pomaterial/{id}/form', [PomaterialController::class, 'edit'])->name('pomaterial.edit');
+Route::post('/pomaterial/{id}/update', [PomaterialController::class, 'update'])->name('pomaterial.update');
+Route::delete('/pomaterial/{id}/destroy', [PomaterialController::class, 'destroy'])->name('pomaterial.destroy');
 
