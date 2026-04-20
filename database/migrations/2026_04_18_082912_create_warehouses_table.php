@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('location')->nullable();
             $table->text('description')->nullable();
+            $table->text('address')->nullable();
+            $table->text('contact')->nullable();
             $table->timestamps();
         });
     }

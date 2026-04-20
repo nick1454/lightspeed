@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
+use App\Models\Material;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -74,6 +75,13 @@ Route::get('/vendor/list', [VendorController::class, 'index'])->name('vendor.lis
 Route::get('/vendor/{id}/form', [VendorController::class, 'edit'])->name('vendor.edit');
 Route::post('/vendor/{id}/update', [VendorController::class, 'update'])->name('vendor.update');
 Route::delete('/vendor/{id}/destroy', [VendorController::class, 'destroy'])->name('vendor.destroy');
+
+Route::post('/material/store', [MaterialController::class, 'store'])->name('material.store');
+Route::get('/material/form', [MaterialController::class, 'create'])->name('material.create');
+Route::get('/material/list', [MaterialController::class, 'index'])->name('material.list');
+Route::get('/material/{id}/form', [MaterialController::class, 'edit'])->name('material.edit');
+Route::post('/material/{id}/update', [MaterialController::class, 'update'])->name('material.update');
+Route::delete('/material/{id}/destroy', [MaterialController::class, 'destroy'])->name('material.destroy');
 
 
 

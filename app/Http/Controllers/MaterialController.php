@@ -2,64 +2,109 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\MaterialRequest;
+use App\Models\Material;
+use App\Models\Category;
+use App\Models\SubCategory;
+use App\Models\Brand;
+use App\Models\Size;
+use App\Models\Unit;
+
+
 
 class MaterialController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+
+        return view('material.index', [
+            'items' => Material::with(['category', 'subcategory', 'brand', 'size', 'unit'])->latest()->get()
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $categories = Category::latest()->get();
+        $subcategories = SubCategory::latest()->get();
+        $brands = Brand::latest()->get();
+        $sizes = Size::latest()->get();
+        $units = Unit::latest()->get();
+
+        return view('material.form', [
+            'item' => new Material(),
+            'categories' => $categories,
+            'subcategories' => $subcategories,
+            'brands' => $brands,
+            'sizes' => $sizes,
+            'units' => $units
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(MaterialRequest $request)
     {
-        //
+        $type = 'success';
+        $msg = 'Material created successfully';
+
+        if (!Material::create($request->validated())) {
+            $type = 'error';
+            $msg = 'Material creation failed';
+        }
+
+        return redirect()->route('material.list')->with($type, $msg);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit($id)
     {
-        //
+        $categories = Category::latest()->get();
+        $subcategories = SubCategory::latest()->get();
+        $brands = Brand::latest()->get();
+        $sizes = Size::latest()->get();
+        $units = Unit::latest()->get();
+
+        $material = Material::find($id);
+
+        if (!$material) {
+            return abort(404);
+        }
+
+        return view('material.form', [
+            'item' => $material,
+            'categories' => $categories,
+            'subcategories' => $subcategories,
+            'brands' => $brands,
+            'sizes' => $sizes,
+            'units' => $units
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(MaterialRequest $request, $id)
     {
-        //
+        $type = 'success';
+        $msg = 'Material updated successfully';
+        $material = Material::find($id);
+
+        if (!$material) {
+            return abort(404);
+        }
+
+        if (!$material->update($request->validated())) {
+            $type = 'error';
+            $msg = 'Material update failed';
+        }
+
+        return redirect()->route('material.list')->with($type, $msg);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy($id)
     {
-        //
-    }
+        $material = Material::find($id);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        if (!$material) {
+            return abort(404);
+        }
+
+        $material->delete();
+
+        return back();
     }
 }
