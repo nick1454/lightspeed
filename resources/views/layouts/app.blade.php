@@ -49,7 +49,16 @@
                     <a class="block px-4 py-2 hover:bg-gray-100">Profile</a>
                     <a class="block px-4 py-2 hover:bg-gray-100">Settings</a>
                     <div class="border-t"></div>
-                    <a class="block px-4 py-2 text-red-500 hover:bg-red-50">Logout</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+
+                    <a class="block px-4 py-2 hover:bg-red-100" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">  
+                        Logout
+                    </a>
+                    
+
+            </form>
                 </div>
 
             </div>

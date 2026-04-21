@@ -37,20 +37,37 @@
                     <th class="px-4 py-3 text-right">Action</th>
                 </tr>
             </thead>
+            <tbody>
+            @foreach ($categories as $category)
+            <tr class="border-t">
+                    <td class="px-4 py-3">{{ $category->name }}</td>
+                    <td class="px-4 py-3">{{ $category->description }}</td>
+                    <td class="px-4 py-3 text-right space-x-2">
+                        <a class="text-blue-600" href="{{ route('category.edit', $category->id) }}">Edit</a>
+                        <button class="text-red-600" onclick="deleteCategory('{{ $category->name }}',
+                        '{{ route('category.destroy', $category->id) }}')">Delete</button>
 
             <tbody>
-
-                <tr class="border-t">
-                    <td class="px-4 py-3">Raw Material</td>
-                    <td class="px-4 py-3">Basic construction materials</td>
-                    <td class="px-4 py-3 text-right space-x-2">
-                        <button class="text-blue-600">Edit</button>
-                        <button class="text-red-600">Delete</button>
+                <form id="delete-form" method="post">
+                                    @csrf
+                                    @method('delete')
+                                </form>
                     </td>
                 </tr>
+            @endforeach
 
             </tbody>
         </table>
     </div>
 </main>
 @endsection
+ @section('scripts')
+        <script>
+            function deleteCategory(name,route) {
+                if (confirm('Are you sure you want to delete category "' + name + '"?')) {
+                    document.getElementById('delete-form').action = route;
+                    document.getElementById('delete-form').submit();
+                }
+            }
+        </script>
+    @endsection

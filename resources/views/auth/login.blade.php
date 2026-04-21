@@ -39,7 +39,6 @@
                 </div>
             @endif
         </div>
-
         <!-- FORM -->
         <form class="space-y-4" action="{{ route('login') }}" method="post">
             @csrf
