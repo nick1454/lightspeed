@@ -138,15 +138,3 @@ Route::middleware('auth')->group(function () {
     Route::post('/materialoutward/items/{id}/destroy', [MaterialOutwardController::class, 'deleteItem'])->name('materialoutward.items.destroy');
 });
 
-
-
-
-
-
-Route::post('/pomaterial/store', [PomaterialController::class, 'store'])->name('pomaterial.store');
-Route::get('/pomaterial/form', [PomaterialController::class, 'create'])->name('pomaterial.create');
-Route::get('/pomaterial/list', [PomaterialController::class, 'index'])->name('pomaterial.list');
-Route::get('/pomaterial/{id}/form', [PomaterialController::class, 'edit'])->name('pomaterial.edit');
-Route::post('/pomaterial/{id}/update', [PomaterialController::class, 'update'])->name('pomaterial.update');
-Route::delete('/pomaterial/{id}/destroy', [PomaterialController::class, 'destroy'])->name('pomaterial.destroy');
-
