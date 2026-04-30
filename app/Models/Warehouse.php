@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Warehouse extends Model
 {
-    //
     protected $fillable = [
         'name',
         'location',
@@ -15,5 +14,8 @@ class Warehouse extends Model
         'contact'
     ];
 
-    
+    public static function getList()
+    {
+        return self::select('id', 'name')->orderBy('name', 'asc')->get();
+    }
 }

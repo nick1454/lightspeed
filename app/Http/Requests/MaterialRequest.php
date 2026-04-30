@@ -12,7 +12,7 @@ class MaterialRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,13 @@ class MaterialRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|max:255',
+            'category_id' => 'required|integer|exists:categories,id',
+            'subcategory_id' => 'required|integer|exists:sub_categories,id',
+            'brand_id' => 'required|integer|exists:brands,id',
+            'size_id' => 'required|integer|exists:sizes,id',
+            'unit_id' => 'required|integer|exists:units,id',
+            'description' => 'nullable|string|max:255',
         ];
     }
 }

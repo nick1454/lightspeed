@@ -1,0 +1,33 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('po_supplier_items', function (Blueprint $table) {
+            $table->id();
+            $table->integer('po_supplier_id');
+            $table->integer('material_id');
+            $table->decimal('quantity', 12, 2);
+            $table->decimal('rate', 12, 2);
+            $table->decimal('amount', 12, 2);
+
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('po_supplier_items');
+    }
+};
