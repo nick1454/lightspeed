@@ -11,4 +11,9 @@ class Unit extends Model
         'short_name',
         'description',
     ];
+
+    public static function getList()
+    {
+        return self::all()->pluck('name', 'id');
+    }
 }

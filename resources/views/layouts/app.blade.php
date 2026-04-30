@@ -4,16 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>@yield('title') | LightSpeed</title>
-
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 <link rel="icon" type="image/x-icon" href="{{ asset('fav.ico') }}">
+<style>
+    main {
+        padding: 20px;
+    }
+</style>
 </head>
 
 <body class="bg-gray-100">
 
 <div class="flex h-screen overflow-hidden">
-
     <!-- OVERLAY -->
     <div id="overlay" class="fixed inset-0 bg-black/40 hidden z-40 md:hidden"></div>
 
@@ -51,21 +55,18 @@
                     <div class="border-t"></div>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
+
+                        <a class="block px-4 py-2 hover:bg-red-100" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            Logout
+                        </a>
                     </form>
-
-                    <a class="block px-4 py-2 hover:bg-red-100" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">  
-                        Logout
-                    </a>
-                    
-
-            </form>
                 </div>
-
             </div>
-
         </header>
 
-        @yield('content')
+        <div class="flex-1 overflow-scroll">
+            @yield('content')
+        </div>
 
     </div>
 

@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sub_categories', function (Blueprint $table) {
-            $table->id();
-            $table->integer('category_id');
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->timestamps();
+        Schema::table('material_outwards', function (Blueprint $table) {
+            $table->string('manual_outward_no')->nullable()->after('out_date')->comment('Manual Outward No');
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sub_categories');
+        Schema::table('material_outwards', function (Blueprint $table) {
+            $table->dropColumn('manual_outward_no');
+        });
     }
 };

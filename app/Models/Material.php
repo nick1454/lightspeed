@@ -23,7 +23,7 @@ class Material extends Model
 
     public function subcategory()
     {
-        return $this->belongsTo(SubCategory::class);
+        return $this->belongsTo(SubCategory::class,'subcategory_id','id');
     }
 
     public function brand()
@@ -39,5 +39,10 @@ class Material extends Model
     public function unit()
     {
         return $this->belongsTo(Unit::class);
+    }
+
+    public static function getList()
+    {
+        return self::all()->pluck('name','id');
     }
 }

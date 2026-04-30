@@ -47,11 +47,11 @@
                 <tr class="border-t">
                     <td class="px-4 py-3">{{ $item->name }}</td>
                     <td class="px-4 py-3">{{ $item->description }}</td>
-                    <td class="px-4 py-3">{{ $item->category->name }}</td>
-                    <td class="px-4 py-3">{{ $item->subcategory->name }}</td>
-                    <td class="px-4 py-3">{{ $item->brand->name }}</td>
-                    <td class="px-4 py-3">{{ $item->size->name }}</td>
-                    <td class="px-4 py-3">{{ $item->unit->name }}</td>
+                    <td class="px-4 py-3">{{ $item->category ? $item->category->name : $item->category_id }}</td>
+                    <td class="px-4 py-3">{{ $item->subcategory ? $item->subcategory->name : $item->sub_category_id }}</td>
+                    <td class="px-4 py-3">{{ $item->brand ? $item->brand->name : $item->brand_id }}</td>
+                    <td class="px-4 py-3">{{ $item->size ? $item->size->name : $item->sizeId }}</td>
+                    <td class="px-4 py-3">{{ $item->unit ? $item->unit->name : $item->unitId }}</td>
                     <td class="px-4 py-3 text-right space-x-2">
                         <a href="{{ route('material.edit', $item->id) }}" title="Edit" class="text-blue-600">Edit</a>
                         <button onclick="deleteItem('{{ $item->name }}','{{ route('material.destroy', $item->id) }}')" class="text-red-600">Delete</button>

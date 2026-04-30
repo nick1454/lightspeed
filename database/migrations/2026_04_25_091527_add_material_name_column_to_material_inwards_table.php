@@ -9,22 +9,22 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+
     public function up(): void
     {
-        Schema::create('sub_categories', function (Blueprint $table) {
-            $table->id();
-            $table->integer('category_id');
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->timestamps();
+        Schema::table('material_inward_items', function (Blueprint $table) {
+            $table->string('material_name')->after('material_id')->nullable();
         });
     }
 
     /**
      * Reverse the migrations.
      */
+
     public function down(): void
     {
-        Schema::dropIfExists('sub_categories');
+        Schema::table('material_inward_items', function (Blueprint $table) {
+            $table->dropColumn('material_name');
+        });
     }
 };
