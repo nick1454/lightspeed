@@ -6,13 +6,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\SubCategoryController;
-use App\Models\Material;
-use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\MaterialInwardController;
 use App\Http\Controllers\MaterialOutwardController;
+use App\Http\Controllers\MaterialTransferController;
+use App\Http\Controllers\OrganisationController;
 use App\Http\Controllers\PoSupplierController;
 use App\Http\Controllers\PoJobWorkController;
+use App\Http\Controllers\WarehouseController;
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
@@ -117,24 +117,52 @@ Route::middleware('auth')->group(function () {
     Route::post('/po-job-work/items/store', [PoJobWorkController::class, 'storeItem'])->name('po.job.work.items.store');
     Route::post('/po-job-work/items/{id}/destroy', [PoJobWorkController::class, 'deleteItem'])->name('po.job.work.items.destroy');
 
+    // material inward
     Route::post('/materialinward/store', [MaterialInwardController::class, 'store'])->name('materialinward.store');
     Route::get('/materialinward/form', [MaterialInwardController::class, 'create'])->name('materialinward.create');
     Route::get('/materialinward/list', [MaterialInwardController::class, 'index'])->name('materialinward.list');
     Route::get('/materialinward/{id}/form', [MaterialInwardController::class, 'edit'])->name('materialinward.edit');
     Route::post('/materialinward/{id}/update', [MaterialInwardController::class, 'update'])->name('materialinward.update');
     Route::delete('/materialinward/{id}/destroy', [MaterialInwardController::class, 'destroy'])->name('materialinward.destroy');
+    Route::get('/materialinward/{id}/print', [MaterialInwardController::class, 'show'])->name('materialinward.print');
 
     Route::post('/materialinward/items/store', [MaterialInwardController::class, 'storeItem'])->name('materialinward.items.store');
     Route::post('/materialinward/items/{id}/destroy', [MaterialInwardController::class, 'deleteItem'])->name('materialinward.items.destroy');
+    // material inward end
 
+    // material outward
     Route::post('/materialoutward/store', [MaterialOutwardController::class, 'store'])->name('materialoutward.store');
     Route::get('/materialoutward/form', [MaterialOutwardController::class, 'create'])->name('materialoutward.create');
     Route::get('/materialoutward/list', [MaterialOutwardController::class, 'index'])->name('materialoutward.list');
     Route::get('/materialoutward/{id}/form', [MaterialOutwardController::class, 'edit'])->name('materialoutward.edit');
     Route::post('/materialoutward/{id}/update', [MaterialOutwardController::class, 'update'])->name('materialoutward.update');
     Route::delete('/materialoutward/{id}/destroy', [MaterialOutwardController::class, 'destroy'])->name('materialoutward.destroy');
+    Route::get('/materialoutward/{id}/print', [MaterialOutwardController::class, 'show'])->name('materialoutward.print');
 
     Route::post('/materialoutward/items/store', [MaterialOutwardController::class, 'storeItem'])->name('materialoutward.items.store');
     Route::post('/materialoutward/items/{id}/destroy', [MaterialOutwardController::class, 'deleteItem'])->name('materialoutward.items.destroy');
+    // material outward end
+
+    // material transfer
+    Route::post('/materialtransfer/store', [MaterialTransferController::class, 'store'])->name('materialtransfer.store');
+    Route::get('/materialtransfer/form', [MaterialTransferController::class, 'create'])->name('materialtransfer.create');
+    Route::get('/materialtransfer/list', [MaterialTransferController::class, 'index'])->name('materialtransfer.list');
+    Route::get('/materialtransfer/{id}/form', [MaterialTransferController::class, 'edit'])->name('materialtransfer.edit');
+    Route::post('/materialtransfer/{id}/update', [MaterialTransferController::class, 'update'])->name('materialtransfer.update');
+    Route::delete('/materialtransfer/{id}/destroy', [MaterialTransferController::class, 'destroy'])->name('materialtransfer.destroy');
+    Route::get('/materialtransfer/{id}/print', [MaterialTransferController::class, 'show'])->name('materialtransfer.print');
+
+    Route::post('/materialtransfer/items/store', [MaterialTransferController::class, 'storeItem'])->name('materialtransfer.items.store');
+    Route::post('/materialtransfer/items/{id}/destroy', [MaterialTransferController::class, 'deleteItem'])->name('materialtransfer.items.destroy');
+    // material transfer end
+    Route::post('/organisation/store', [OrganisationController::class, 'store'])->name('organisation.store');
+    Route::get('/organisation/form', [OrganisationController::class, 'create'])->name('organisation.create');
+    Route::get('/organisation/list', [OrganisationController::class, 'index'])->name('organisation.list');
+    Route::get('/organisation/{id}/form', [OrganisationController::class, 'edit'])->name('organisation.edit');
+    Route::post('/organisation/{id}/update', [OrganisationController::class, 'update'])->name('organisation.update');
+    Route::delete('/organisation/{id}/destroy', [OrganisationController::class, 'destroy'])->name('organisation.destroy');
+
+    Route::post('/organisation/items/store', [OrganisationController::class, 'storeItem'])->name('organisation.items.store');
+    Route::post('/organisation/items/{id}/destroy', [OrganisationController::class, 'deleteItem'])->name('organisation.items.destroy');
 });
 

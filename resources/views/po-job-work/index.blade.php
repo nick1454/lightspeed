@@ -13,6 +13,27 @@
         </a>
     </div>
 
+    <!-- Filter -->
+    <div class="bg-white rounded shadow">
+        <table class="w-full text-sm">
+            <tbody class="bg-gray-50">
+                <tr>
+                    <td class="px-4 py-3 text-left">Filters</td>
+                </tr>
+                <tr>
+                    <td class="px-2 py-3 text-left">
+                        <input type="date" placeholder="From Date" class="px-2 py-2 border border-gray-300 rounded-md">
+                        <input type="date" placeholder="To Date" class="px-2 py-2 border border-gray-300 rounded-md">
+                        <input type="text" placeholder="Inward No" class="px-2 py-2 border border-gray-300 rounded-md">
+                        <input type="text" placeholder="Vendor No" class="px-2 py-2 border border-gray-300 rounded-md">
+                        <input type="text" placeholder="Vendor" class="px-2 py-2 border border-gray-300 rounded-md">
+                        <input type="text" placeholder="Warehouse" class="px-2 py-2 border border-gray-300 rounded-md">
+                        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded border border-gray-300 rounded-md btn-sm">Search</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     <!-- FLASH MESSAGE -->
     @include('layouts.includes.flash-messages', ['type' => 'error'])
     @if ($errors->any())

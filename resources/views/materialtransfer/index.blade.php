@@ -1,15 +1,15 @@
 @extends('layouts.app')
-@section('title', 'Material Inward List')
+@section('title', 'Material Transfer')
 @section('content')
 
 <main class="p-6 space-y-6">
     <!-- TOP -->
     <div class="flex justify-between items-center">
-        <h2 class="text-xl font-semibold">Material Inward List</h2>
+        <h2 class="text-xl font-semibold">@yield('title') List</h2>
 
-        <a href="/materialinward/form"
+        <a href="/materialtransfer/form"
            class="bg-blue-600 text-white px-4 py-2 rounded">
-           + Add Material Inward
+           + Add
         </a>
     </div>
 
@@ -24,10 +24,10 @@
                     <td class="px-2 py-3 text-left">
                         <input type="date" placeholder="From Date" class="px-2 py-2 border border-gray-300 rounded-md">
                         <input type="date" placeholder="To Date" class="px-2 py-2 border border-gray-300 rounded-md">
-                        <input type="text" placeholder="Inward No" class="px-2 py-2 border border-gray-300 rounded-md">
-                        <input type="text" placeholder="Vendor No" class="px-2 py-2 border border-gray-300 rounded-md">
-                        <input type="text" placeholder="Vendor" class="px-2 py-2 border border-gray-300 rounded-md">
-                        <input type="text" placeholder="Warehouse" class="px-2 py-2 border border-gray-300 rounded-md">
+                        <input type="text" placeholder="Transfer No" class="px-2 py-2 border border-gray-300 rounded-md">
+                        <input type="text" placeholder="Manual No" class="px-2 py-2 border border-gray-300 rounded-md">
+                        <input type="text" placeholder="Warehouse From" class="px-2 py-2 border border-gray-300 rounded-md">
+                        <input type="text" placeholder="Warehouse To" class="px-2 py-2 border border-gray-300 rounded-md">
                         <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded border border-gray-300 rounded-md btn-sm">Search</button>
                     </td>
                 </tr>
@@ -51,26 +51,22 @@
         <table class="w-full text-sm">
             <thead class="bg-gray-50">
                 <tr>
-                    <th class="px-4 py-3 text-left">Inward No</th>
-                    <th class="px-4 py-3 text-left">Vendor No</th>
+                    <th class="px-4 py-3 text-left">Transfer No</th>
                     <th class="px-4 py-3 text-left">Date</th>
-                    <th class="px-4 py-3 text-left">Vendor</th>
-                    <th class="px-4 py-3 text-left">Warehosue</th>
-                    <th class="px-4 py-3 text-left">Amount</th>
+                    <th class="px-4 py-3 text-left">Warehouse From</th>
+                    <th class="px-4 py-3 text-left">Warehouse To</th>
                     <th class="px-4 py-3 text-left">Status</th>
-                    <th class="px-4 py-3 text-right">Action</th>
+                    <th class="px-4 py-3 text-left">Action</th>
                 </tr>
             </thead>
 
             <tbody>
                 @foreach ($items as $item)
                 <tr class="border-t">
-                    <td class="px-4 py-3">{{ $item->inward_no }}</td>
-                    <td class="px-4 py-3">{{ $item->vendor_inward_no }}</td>
-                    <td class="px-4 py-3">{{ $item->date }}</td>
-                    <td class="px-4 py-3">{{ $item->vendor->name ?? '-' }}</td>
-                    <td class="px-4 py-3">{{ $item->warehouse->name ?? '-' }}</td>
-                    <td class="px-4 py-3">{{ $item->total_amount ?? '-' }}</td>
+                    <td class="px-4 py-3">{{ $item->transfer_no }}</td>
+                    <td class="px-4 py-3">{{ date('d-M-Y', strtotime($item->transfer_date)) }}</td>
+                    <td class="px-4 py-3">{{ $item->warehouseFrom->name ?? '-' }}</td>
+                    <td class="px-4 py-3">{{ $item->warehouseTo->name ?? '-' }}</td>
                     <td class="px-4 py-3">
                         @if ($item->is_draft == 1)
                         <span class="bg-red-500 text-white px-2 rounded">Draft</span>
@@ -78,10 +74,10 @@
                         <span class="bg-green-500 text-white px-2 rounded">Confirmed</span>
                         @endif
                     </td>
-                    <td class="px-4 py-3 text-right space-x-2">
-                        <a href="{{ route('materialinward.print', $item->id) }}" title="Print" class="text-blue-600" target="_blank">Print</a>
-                        <a href="{{ route('materialinward.edit', $item->id) }}" title="Edit" class="text-blue-600">Edit</a>
-                        <button onclick="deleteItem('{{ $item->id }}','{{ route('materialinward.destroy', $item->id) }}')" class="text-red-600">Delete</button>
+                    <td class="px-4 py-3 text-left space-x-2">
+                        <a href="{{ route('materialtransfer.print', $item->id) }}" title="Print" class="text-blue-600" target="_blank">Print</a>
+                        <a href="{{ route('materialtransfer.edit', $item->id) }}" title="Edit" class="text-blue-600">Edit</a>
+                        <button onclick="deleteItem('{{ $item->id }}','{{ route('materialtransfer.destroy', $item->id) }}')" class="text-red-600">Delete</button>
                     </td>
                 </tr>
                 @endforeach

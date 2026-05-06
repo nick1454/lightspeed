@@ -48,6 +48,7 @@
             <div class="dropdown hidden ml-8 space-y-2">
                 <a class="block py-1 text-sm text-gray-600 hover:text-black" href="{{ route('materialinward.list') }}">Material Inwards</a>
                 <a class="block py-1 text-sm text-gray-600 hover:text-black" href="{{ route('materialoutward.list') }}">Material Outwards</a>
+                <a class="block py-1 text-sm text-gray-600 hover:text-black" href="{{ route('materialtransfer.list') }}">Material Transfers</a>
             </div>
         </div>
 
@@ -73,6 +74,7 @@
                 <a class="block py-1 text-sm text-gray-600 hover:text-black" href="{{ route('vendor.list') }}">Vendors</a>
                 <a class="block py-1 text-sm text-gray-600 hover:text-black" href="{{ route('warehouse.list') }}">Warehouses</a>
                 <a class="block py-1 text-sm text-gray-600 hover:text-black" href="{{ route('material.list') }}">Materials</a>
+                <a class="block py-1 text-sm text-gray-600 hover:text-black" href="{{ route('organisation.list') }}">Organisations</a>
             </div>
         </nav>
     </aside>

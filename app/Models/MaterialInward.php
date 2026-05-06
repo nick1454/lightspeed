@@ -23,7 +23,7 @@ class MaterialInward extends Model
         'is_draft',
     ];
 
-    public function items()
+    public function materialInwardItems()
     {
         return $this->hasMany(MaterialInwardItems::class);
     }
@@ -31,5 +31,15 @@ class MaterialInward extends Model
     public function vendor()
     {
         return $this->belongsTo(Vendor::class, 'vendor_id');
+    }
+
+    public function warehouse()
+    {
+        return $this->belongsTo(Warehouse::class, 'warehouse_id');
+    }
+
+    public function createdByUser()
+    {
+        return $this->belongsTo(User::class, 'created_by_id');
     }
 }

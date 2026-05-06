@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
-use App\Models\Material;
-use App\Models\MaterialInward;
-use App\Http\Requests\MaterialInwardRequest;
-use App\Http\Requests\MaterialInwardItemsRequest;
-use App\Models\MaterialInwardItems;
-use App\Models\Vendor;
+use Illuminate\Http\Request;
+use App\Models\MaterialTransferItem;
+use App\Models\MaterialTransfer;
+use App\Http\Requests\MaterialTransferRequest;
+use App\Http\Requests\MaterialTransferItemsRequest;
 use App\Models\Warehouse;
+use App\Models\Material;
+use Auth;
 
-class MaterialInwardController extends Controller
+class MaterialTransferController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $items = MaterialInward::get();
-        return view('materialinward.index', compact('items'));
+        $items = MaterialTransfer::with(['warehouseFrom','warehouseTo'])->get();
+        return view('materialtransfer.index', compact('items'));
     }
 
     /**
@@ -27,42 +27,38 @@ class MaterialInwardController extends Controller
      */
     public function create()
     {
-        $ref = MaterialInward::max('id');
+        $ref = MaterialTransfer::max('id');
         $ref = $ref ? $ref + 1 : 1;
 
-        $item = new MaterialInward();
-        $item->in_date = date('Y-m-d');
-        $item->inward_no = 'IN-'.$ref;
-        $item->vendor_inward_no = '';
-        $item->vendor_id = 0;
-        $item->warehouse_id = 0;
+        $item = new MaterialTransfer();
+        $item->transfer_date = date('Y-m-d');
+        $item->transfer_no = 'TF-'.$ref;
+        $item->manual_transfer_no = '';
+        $item->warehouse_from_id = 0;
+        $item->warehouse_to_id = 0;
         $item->remarks = '';
         $item->created_by_id = Auth::user()->id;
         $item->updated_by_id = Auth::user()->id;
         $item->is_draft = 1;
         $item->save();
 
-        return redirect()->route('materialinward.edit', $item->id);
+        return redirect()->route('materialtransfer.edit', $item->id);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(MaterialInwardRequest $request)
+    public function store(Request $request)
     {
-        return redirect()->route('materialinward.list');
+        //
     }
 
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(string $id)
     {
-        $inward = MaterialInward::with(['materialInwardItems'])->find($id);
-        if (!$inward) {
-            return redirect()->back()->with('error', 'Inward not found.');
-        }
-        return view('materialinward.print', compact('inward'));
+        //
     }
 
     /**
@@ -70,32 +66,34 @@ class MaterialInwardController extends Controller
      */
     public function edit($id)
     {
-        $item = MaterialInward::find($id);
-        $vendors = Vendor::getList();
+        $item = MaterialTransfer::find($id);
         $warehouses = Warehouse::getList();
         $materials = Material::getList();
 
-        $items = MaterialInwardItems::where('material_inward_id', $id)->get();
+        $items = MaterialTransferItem::where('material_transfer_id', $id)->get();
 
-        return view('materialinward.form', compact('item','vendors','warehouses','materials','items'));
+        return view('materialtransfer.form', compact('item','warehouses','materials','items'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(MaterialInwardRequest $request, $id)
+    public function update(MaterialTransferRequest $request, $id)
     {
-        $items = MaterialInwardItems::where('material_inward_id', $id)->get();
+        $item = MaterialTransfer::find($id);
 
-        if ($items->isEmpty()) {
-            return redirect()->back()->with('error', 'No items added.');
+        if (!$item) {
+            return redirect()->to('materialtransfer.index')->withError('Transfer not found.');
         }
 
-        $item = MaterialInward::find($id);
+        if ($item->is_draft == 1){
+            $item->is_draft = 0;
+        }
+
         $item->fill($request->all());
         $item->save();
 
-        return redirect()->route('materialinward.list');
+        return redirect()->back()->withSuccess('Transfer Updated successfully.');
     }
 
     /**
@@ -119,16 +117,15 @@ class MaterialInwardController extends Controller
         return redirect()->route('materialinward.list');
     }
 
-    public function storeItem(MaterialInwardItemsRequest $request)
+    /**
+     * Add Or Update the specified resource items from storage.
+     */
+    public function storeItem(MaterialTransferItemsRequest $request)
     {
-        // echo "<pre>";
-        // print_r($request->all());
-        // die;
-
-        $item = MaterialInwardItems::updateOrCreate([
+        $item = MaterialTransferItem::updateOrCreate([
             'id' => $request->item_id,
         ], [
-            'material_inward_id' => $request->material_inward_id,
+            'material_transfer_id' => $request->material_transfer_id,
             'material_id' => $request->material_id,
             'material_name' => $request->material_name,
             'rate' => $request->rate,
@@ -143,13 +140,15 @@ class MaterialInwardController extends Controller
         return redirect()->back()->with('success', 'Item added.');
     }
 
+    /**
+     * Remove the specified resource items from storage.
+     */
     public function deleteItem($id)
     {
-        $inwardItem = MaterialInwardItems::find($id);
-        if (!$inwardItem || !$inwardItem->delete()) {
+        $transferItem = MaterialTransferItem::find($id);
+        if (!$transferItem || !$transferItem->delete()) {
             return redirect()->back()->with('error', 'Failed to delete item.');
         }
         return redirect()->back()->with('success', 'Item deleted.');
     }
-
 }

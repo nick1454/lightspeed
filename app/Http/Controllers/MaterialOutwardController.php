@@ -20,9 +20,7 @@ class MaterialOutwardController extends Controller
     public function index()
     {
         $items = MaterialOutward::get();
-        // echo "<pre>";
-        // print_r($items);
-        // die;
+
         return view('materialoutward.index', compact('items'));
     }
 
@@ -61,7 +59,12 @@ class MaterialOutwardController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $outward = MaterialOutward::with(['materialOutwardItems'])->find($id);
+        if (!$outward) {
+            return redirect()->back()->with('error', 'Outward not found.');
+        }
+
+        return view('materialoutward.print', compact('outward'));
     }
 
     /**s

@@ -33,7 +33,7 @@ class MaterialOutward extends Model
 
 
 
-    public function items()
+    public function materialOutwardItems()
     {
         return $this->hasMany(MaterialOutwardItems::class);
     }
