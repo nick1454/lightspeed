@@ -125,6 +125,28 @@ function deleteItem(name,route) {
     }
 }
 
+const today = new Date();
+
+// First date of current month
+const startDate = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    1
+);
+
+// Last date of current month
+const endDate = new Date(
+    today.getFullYear(),
+    today.getMonth() + 1,
+    0
+);
+function formatDate(date) {
+    return date.toISOString().split('T')[0];
+}
+console.log(formatDate(startDate));
+console.log(formatDate(endDate));
+document.getElementById('start-date').value = formatDate(startDate);
+document.getElementById('end-date').value = formatDate(endDate);
 </script>
 
 @yield('scripts')

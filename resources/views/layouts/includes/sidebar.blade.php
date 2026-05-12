@@ -13,6 +13,13 @@
             <i class="fa fa-home w-5"></i>
             <span class="ml-3">Dashboard</span>
         </a>
+
+        <!-- ESTIMATES -->
+        <a class="flex items-center p-3 rounded hover:bg-gray-100" href="{{ route('estimate.list') }}">
+            <i class="fa fa-building w-5"></i>
+            <span class="ml-3">Estimates</span>
+        </a>
+
         <!-- PROJECTS -->
         <div>
             <button onclick="toggleDropdown(this)"
@@ -75,6 +82,7 @@
                 <a class="block py-1 text-sm text-gray-600 hover:text-black" href="{{ route('warehouse.list') }}">Warehouses</a>
                 <a class="block py-1 text-sm text-gray-600 hover:text-black" href="{{ route('material.list') }}">Materials</a>
                 <a class="block py-1 text-sm text-gray-600 hover:text-black" href="{{ route('organisation.list') }}">Organisations</a>
+                <a class="block py-1 text-sm text-gray-600 hover:text-black" href="{{ route('client.list') }}">Clients</a>
             </div>
         </nav>
     </aside>

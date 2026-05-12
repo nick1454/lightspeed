@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('estimate_items', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('estimate_id');
+            $table->enum('item_type', ['material', 'labor'])->default('material');
+            $table->bigInteger('material_id')->nullable();
+            $table->string('material_name')->nullable();
+            $table->string('description', 255);
+            $table->decimal('quantity', 12, 3);
+            $table->bigInteger('unit_id');
+            $table->decimal('rate', 12, 2);
+            $table->decimal('amount', 12, 2);
             $table->timestamps();
         });
     }

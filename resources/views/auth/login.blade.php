@@ -17,7 +17,9 @@
 
         <!-- HEADER -->
         <div class="text-center">
-            <h1 class="text-2xl font-semibold">Welcome back</h1>
+            <div class="flex justify-center">
+                <img src="{{ asset('logo.png') }}" class="">
+            </div>
             <p class="text-gray-500 text-sm mt-1">Login to your account</p>
         </div>
 

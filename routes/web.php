@@ -13,6 +13,7 @@ use App\Http\Controllers\OrganisationController;
 use App\Http\Controllers\PoSupplierController;
 use App\Http\Controllers\PoJobWorkController;
 use App\Http\Controllers\WarehouseController;
+use App\Http\Controllers\ClientController;
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
@@ -117,6 +118,21 @@ Route::middleware('auth')->group(function () {
     Route::post('/po-job-work/items/store', [PoJobWorkController::class, 'storeItem'])->name('po.job.work.items.store');
     Route::post('/po-job-work/items/{id}/destroy', [PoJobWorkController::class, 'deleteItem'])->name('po.job.work.items.destroy');
 
+    // ESTIMATES
+    Route::post('/estimate/store', [EstimateController::class, 'store'])->name('estimate.store');
+    Route::get('/estimate/form', [EstimateController::class, 'create'])->name('estimate.create');
+    Route::get('/estimate/list', [EstimateController::class, 'index'])->name('estimate.list');
+    Route::get('/estimate/{id}/form', [EstimateController::class, 'edit'])->name('estimate.edit');
+    Route::post('/estimate/{id}/update', [EstimateController::class, 'update'])->name('estimate.update');
+    Route::delete('/estimate/{id}/destroy', [EstimateController::class, 'destroy'])->name('estimate.destroy');
+    Route::get('/estimate/{id}/print', [EstimateController::class, 'show'])->name('estimate.print');
+
+    Route::post('/estimate/items/store', [EstimateController::class, 'storeItem'])->name('estimate.items.store');
+    Route::post('/estimate/items/{id}/destroy', [EstimateController::class, 'deleteItem'])->name('estimate.items.destroy');
+    Route::post('/estimate/{id}/changeStatus', [EstimateController::class, 'changeStatus'])->name('estimate.changeStatus');
+    Route::post('/estimate/{id}/makeJobWorkPo', [EstimateController::class, 'makeJobWorkPo'])->name('estimate.makeJobWorkPo');
+    // ESTIMATES end
+
     // material inward
     Route::post('/materialinward/store', [MaterialInwardController::class, 'store'])->name('materialinward.store');
     Route::get('/materialinward/form', [MaterialInwardController::class, 'create'])->name('materialinward.create');
@@ -155,6 +171,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/materialtransfer/items/store', [MaterialTransferController::class, 'storeItem'])->name('materialtransfer.items.store');
     Route::post('/materialtransfer/items/{id}/destroy', [MaterialTransferController::class, 'deleteItem'])->name('materialtransfer.items.destroy');
     // material transfer end
+
+
     Route::post('/organisation/store', [OrganisationController::class, 'store'])->name('organisation.store');
     Route::get('/organisation/form', [OrganisationController::class, 'create'])->name('organisation.create');
     Route::get('/organisation/list', [OrganisationController::class, 'index'])->name('organisation.list');
@@ -164,5 +182,18 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/organisation/items/store', [OrganisationController::class, 'storeItem'])->name('organisation.items.store');
     Route::post('/organisation/items/{id}/destroy', [OrganisationController::class, 'deleteItem'])->name('organisation.items.destroy');
+
+    // clients
+    Route::post('/client/store', [ClientController::class, 'store'])->name('client.store');
+    Route::get('/client/form', [ClientController::class, 'create'])->name('client.create');
+    Route::get('/client/list', [ClientController::class, 'index'])->name('client.list');
+    Route::get('/client/{id}/form', [ClientController::class, 'edit'])->name('client.edit');
+    Route::post('/client/{id}/update', [ClientController::class, 'update'])->name('client.update');
+    Route::delete('/client/{id}/destroy', [ClientController::class, 'destroy'])->name('client.destroy');
+
+    Route::post('/client/items/store', [ClientController::class, 'storeItem'])->name('client.items.store');
+    Route::post('/client/items/{id}/destroy', [ClientController::class, 'deleteItem'])->name('client.items.destroy');
+
+    // clients end
 });
 
