@@ -32,7 +32,7 @@
             <label class="block text-sm font-medium mb-1">PO Number</label>
             <input type="text"
                 class="w-full border rounded-lg px-3 py-2"
-                name="name"
+                name="po_number"
                 value="{{ $item->po_number ?? '' }}"
                 placeholder="Enter PO NUMBER">
         </div>
@@ -40,10 +40,10 @@
         <!-- VENDORS -->
         <div>
             <label class="block text-sm font-medium mb-1">Vendor</label>
-            <select class="w-full border rounded-lg px-3 py-2" name="vendor_id">
+            <select class="w-full border rounded-lg px-3 py-2" name="supplier_id">
                 <option value="">Select a Vendor</option>
                 @foreach ($vendors as $vendor)
-                    <option value="{{ $vendor->id }}" {{ $item && $item->vendor_id == $vendor->id ? 'selected' : '' }}>
+                    <option value="{{ $vendor->id }}" {{ $item && $item->supplier_id == $vendor->id ? 'selected' : '' }}>
                         {{ $vendor->name }}
                     </option>
                 @endforeach
@@ -69,48 +69,6 @@
                 value="{{ $item->expected_date ?? '' }}"
                 placeholder="Enter expected date (YYYY-MM-DD)">
         </div>
-
-        <!-- SUBTOTAL -->
-        <div>
-            <label class="block text-sm font-medium mb-1">Subtotal</label>
-            <input type="number"
-                class="w-full border rounded-lg px-3 py-2"
-                name="subtotal"
-                value="{{ $item->subtotal ?? '' }}"
-                placeholder="Enter subtotal">
-        </div>
-
-        <!-- TAX -->
-        <div>
-            <label class="block text-sm font-medium mb-1">Tax</label>
-            <input type="number"
-                class="w-full border rounded-lg px-3 py-2"
-                name="tax"
-                value="{{ $item->tax ?? '' }}"
-                placeholder="Enter tax">
-        </div>
-
-        <!-- TOTAL -->
-                <div>
-                    <label class="block text-sm font-medium mb-1">Total</label>
-                    <input type="number"
-                        class="w-full border rounded-lg px-3 py-2"
-                        name="total"
-                        value="{{ $item->total ?? '' }}"
-                        placeholder="Enter total">
-                </div>
-
-
-
-        <!-- STATUS -->
-                <div>
-                    <label class="block text-sm font-medium mb-1">Status</label>
-                    <input type="text"
-                        class="w-full border rounded-lg px-3 py-2"
-                        name="status"
-                        value="{{ $item->status ?? '' }}"
-                        placeholder="Enter status">
-                </div>
 
                 <!---NOTE -->
                 <div>

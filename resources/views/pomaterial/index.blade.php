@@ -2,6 +2,7 @@
 @section('title', 'PO Material List')
 @section('content')
 
+
 <main class="p-6 space-y-6">
 
     <!-- TOP -->
@@ -42,7 +43,7 @@
                 @foreach ($items as $item)
                 <tr class="border-t">
                     <td class="px-4 py-3">{{ $item->po_number }}</td>
-                    <td class="px-4 py-3">{{ $item->supplier_id }}</td>
+                    <td class="px-4 py-3">{{ $item->vendor->name }}</td>
                     <td class="px-4 py-3">{{ $item->order_date }}</td>
                     <td class="px-4 py-3">{{ $item->expected_date }}</td>
                     <td class="px-4 py-3">{{ $item->subtotal }}</td>

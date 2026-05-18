@@ -20,7 +20,7 @@
 <div class="flex h-screen overflow-hidden">
     <!-- OVERLAY -->
     <div id="overlay" class="fixed inset-0 bg-black/40 hidden z-40 md:hidden"></div>
-
+   
     @include('layouts.includes.sidebar')
 
     <!-- MAIN -->
