@@ -70,6 +70,11 @@
                 {{ $unit && $unit->id ? 'Update' : 'Create' }}
             </button>
 
+           <a href="/unit/list"
+               class="px-4 py-2 bg-gray-200 rounded-lg">
+               Back
+            </a>
+
         </div>
 
     </form>

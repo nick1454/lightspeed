@@ -60,6 +60,11 @@
                 {{ $item && $item->id ? 'Update' : 'Save' }} Brand
             </button>
 
+                <a href="/brand/list"
+                class="px-4 py-2 bg-gray-200 rounded-lg">
+                Back
+
+
         </div>
 
     </form>

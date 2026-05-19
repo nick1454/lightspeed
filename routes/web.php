@@ -55,13 +55,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/category/{id}/destroy', [CategoryController::class, 'destroy'])->name('category.destroy');
     Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
 
-    Route::get('/subcategory/list', function () {
-        return view('subcategory.index');
-    })->name('subcategory.list');
-
-    Route::get('/subcategory/form', function () {
-        return view('subcategory.form');
-    })->name('subcategory.form');
+    Route::post('/subcategory/store', [SubCategoryController::class, 'store'])->name('subcategory.store');
+    Route::get('/subcategory/form', [SubCategoryController::class, 'create'])->name('subcategory.create');
+    Route::get('/subcategory/list', [SubCategoryController::class, 'index'])->name('subcategory.list');
+    Route::get('/subcategory/{id}/form', [SubCategoryController::class, 'edit'])->name('subcategory.edit');
+    Route::post('/subcategory/{id}/update', [SubCategoryController::class, 'update'])->name('subcategory.update');
+    Route::delete('/subcategory/{id}/destroy', [SubCategoryController::class, 'destroy'])->name('subcategory.destroy');
+    Route::get('/subcategory', [SubCategoryController::class, 'index'])->name('subcategory.index');
 
     Route::post('/brand/store', [BrandController::class, 'store'])->name('brand.store');
     Route::get('/brand/form', [BrandController::class, 'create'])->name('brand.create');
@@ -121,6 +121,7 @@ Route::middleware('auth')->group(function () {
     // ESTIMATES
     Route::post('/estimate/store', [EstimateController::class, 'store'])->name('estimate.store');
     Route::get('/estimate/form', [EstimateController::class, 'create'])->name('estimate.create');
+    Route::get('/estimate/index', [EstimateController::class, 'index'])->name('estimate.inde');
     Route::get('/estimate/list', [EstimateController::class, 'index'])->name('estimate.list');
     Route::get('/estimate/{id}/form', [EstimateController::class, 'edit'])->name('estimate.edit');
     Route::post('/estimate/{id}/update', [EstimateController::class, 'update'])->name('estimate.update');

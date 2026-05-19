@@ -64,6 +64,10 @@
                                     {{ $category && $category->id ? 'Update' : 'Create' }}
                                 </button>
 
+                     <a href="{{ route('category.list') }}" class="bg-blue-500 text-white px-5 py-2.5 rounded-xl">
+                Back
+            </a>
+
                     </div>
 
                 </form>

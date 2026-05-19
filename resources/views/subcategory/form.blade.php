@@ -72,6 +72,11 @@
                 class="px-6 py-2 bg-blue-600 text-white rounded-lg">
                 Save Subcategory
             </button>
+            
+                <a href="{{ route('subcategory.list') }}" class="bg-blue-500 text-white px-5 py-2.5 rounded-xl">
+                Back
+            </a>
+
 
         </div>
 

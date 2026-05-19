@@ -175,7 +175,7 @@ class EstimateController extends Controller
 
             $jobwork->po_no = 'JO-' . $ref;
             $jobwork->client = $estimate->client_id;
-            $jobwork->contact = $estimate->client?->phone;
+            $jobwork->contact = $estimate->client && $estimate->client->phone ? $estimate->client->phone : '';
             $jobwork->description = '';
             $jobwork->location = '';
             $jobwork->type = '';

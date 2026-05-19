@@ -87,6 +87,11 @@
                 {{ $item && $item->id ? 'Update' : 'Save' }} Vendor
             </button>
 
+            <a href="/vendors/list"
+               class="px-4 py-2 bg-gray-200 rounded-lg">
+               Back
+            </a>
+
         </div>
 
     </form>

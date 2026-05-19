@@ -76,7 +76,10 @@
                 class="px-6 py-2 bg-blue-600 text-white rounded-lg">
                 {{ $item && $item->id ? 'Update' : 'Save' }} Vendor
             </button>
-
+                <a href="/vendor/list"
+                class="px-4 py-2 bg-gray-200 rounded-lg">
+                Back
+                </a>
         </div>
 
     </form>

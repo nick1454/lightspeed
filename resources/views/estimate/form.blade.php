@@ -68,6 +68,9 @@
             <button type="button" onclick="resetForm()" class="bg-slate-200 px-5 py-2.5 rounded-xl">
                 Clear
             </button>
+                  <a href="{{ route('estimate.list') }}" class="bg-blue-500 text-white px-5 py-2.5 rounded-xl">
+                Back
+            </a>
         </div>
     </form>
 </div>

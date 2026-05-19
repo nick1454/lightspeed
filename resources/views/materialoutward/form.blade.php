@@ -79,6 +79,9 @@
             <button type="button" onclick="resetForm()" class="bg-slate-200 px-5 py-2.5 rounded-xl">
                 Clear
             </button>
+            <a href="{{ route('materialoutward.list') }}" class="bg-gray-600 text-white px-5 py-2.5 rounded-xl">
+                Back to List
+            </a>
         </div>
     </form>
 </div>

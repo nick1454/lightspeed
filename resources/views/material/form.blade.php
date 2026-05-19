@@ -111,6 +111,10 @@
                 {{ $item && $item->id ? 'Update' : 'Save' }} Material
             </button>
 
+            <a href="/material/list"
+               class="px-4 py-2 bg-gray-200 rounded-lg">
+               Back
+            </a>
         </div>
 
     </form>

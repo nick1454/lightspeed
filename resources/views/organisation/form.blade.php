@@ -70,6 +70,11 @@
                 {{ $organisation && $organisation->id ? 'Update' : 'Create' }}
             </button>
 
+                <a href="/organisation/list"
+                class="px-4 py-2 bg-gray-200 rounded-lg">
+                Back
+            </a>
+
         </div>
 
     </form>

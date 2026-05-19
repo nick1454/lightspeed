@@ -11,8 +11,10 @@ class SubCategoryController extends Controller
 {
     public function index()
     {
+        $subcategories = SubCategory::with('category')->latest()->get();
+
         return view('subcategory.index', [
-            'subcategories' => SubCategory::with('category')->latest()->get()
+            'subcategories' => $subcategories
         ]);
     }
 
