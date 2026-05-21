@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\PoJobWork;
 use App\Models\PoJobWorkItem;
+use App\Models\PoJobWork;
 use Auth;
 
 class PoJobWorkController extends Controller
@@ -37,10 +37,15 @@ class PoJobWorkController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
-    }
+        $jobwork= PoJobWork::with(['client','items'])->find($id);
+        if (!$jobwork) {
+            return redirect()->back()->with('error', 'Job Work not found.');
+        }
+        return view('po-job-work.print', compact('jobwork'));
+    }   
+    
 
     /**
      * Show the form for editing the specified resource.

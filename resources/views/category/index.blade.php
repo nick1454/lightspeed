@@ -53,6 +53,7 @@
                                     @method('delete')
                                 </form>
                     </td>
+
                 </tr>
             @endforeach
 

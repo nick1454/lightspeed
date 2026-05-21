@@ -55,13 +55,7 @@ class EstimateController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+   
 
     /**
      * Show the form for editing the specified resource.
@@ -218,5 +212,15 @@ class EstimateController extends Controller
 
             return redirect()->back()->with('error', $e->getMessage());
         }
+        
+        
     }
+    public function show($id)
+    {
+        $estimate= Estimate::with(['client'])->find($id);
+        if (!$estimate) {
+            return redirect()->back()->with('error', 'Estimate not found.');
+        }
+        return view('estimate.print', compact('estimate'));
+    }   
 }

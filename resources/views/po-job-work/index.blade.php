@@ -1,15 +1,15 @@
 @extends('layouts.app')
-@section('title', 'Po Supplier List')
+@section('title', 'Po Job Work List')
 @section('content')
 
 <main class="p-6 space-y-6">
     <!-- TOP -->
     <div class="flex justify-between items-center">
-        <h2 class="text-xl font-semibold">Po Supplier List</h2>
+        <h2 class="text-xl font-semibold">Po Job Work List</h2>
 
-        <a href="/po-supplier/form"
+        <a href="/po-job-work/form"
            class="bg-blue-600 text-white px-4 py-2 rounded">
-           + Add Po Supplier
+           + Add Po Job Work
         </a>
     </div>
 
@@ -80,8 +80,11 @@
                         @endif
                     </td>
                     <td class="px-4 py-3 text-right space-x-2">
-                        <a href="{{ route('po.supplier.edit', $item->id) }}" title="Edit" class="text-blue-600">Edit</a>
-                        <button onclick="deleteItem('{{ $item->id }}','{{ route('po.supplier.destroy', $item->id) }}')" class="text-red-600">Delete</button>
+                        <a href=."{{ route('po.job.work.edit', $item->id) }}" title="Edit" class="text-blue-600">Edit</a>
+                        <button onclick="deleteItem('{{ $item->id }}','{{ route('po.job.work.destroy', $item->id) }}')" class="text-red-600">Delete</button>
+                          <button onclick="window.open('{{ route('po.job.work.print', $item->id) }}', '_blank')" class="text-blue-600">
+                            Print
+                         </button>
                     </td>
                 </tr>
                 @endforeach

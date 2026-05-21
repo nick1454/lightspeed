@@ -18,4 +18,14 @@ class PoJobWork extends Model
         'created_by_id',
         'updated_by_id'
     ];
+
+    public function client()
+    {
+        return $this->belongsTo(Client::class, 'client');
+    }
+
+    public function items()
+    {
+        return $this->hasMany(PoJobWorkItem::class, 'job_work_id');
+    }
 }

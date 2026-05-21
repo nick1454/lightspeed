@@ -83,6 +83,9 @@
                     <td class="px-4 py-3 text-right space-x-2">
                         <a href="{{ route('po.supplier.edit', $item->id) }}" title="Edit" class="text-blue-600">Edit</a>
                         <button onclick="deleteItem('{{ $item->id }}','{{ route('po.supplier.destroy', $item->id) }}')" class="text-red-600">Delete</button>
+                    <button onclick="window.open('{{ route('po.supplier.print', $item->id) }}', '_blank')" class="text-blue-600">
+                        Print
+                    </button>
                     </td>
                 </tr>
                 @endforeach

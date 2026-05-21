@@ -57,7 +57,15 @@ class PoSupplierController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $item = PoSupplier::find($id);
+        $vendors = Vendor::getList();
+        $warehouses = Warehouse::getList();
+        $materials = Material::getList();
+        $units = Unit::getList();
+
+        $items = PoSupplierItems::where('po_supplier_id', $id)->get();
+
+        return view('po-supplier.print', compact('item','vendors','warehouses','units','materials','items'));
     }
 
     /**

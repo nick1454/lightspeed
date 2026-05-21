@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Material Inward Print</title>
+        <title>Estimate Print</title>
         <style>
         @page {
             size: A4;
@@ -144,23 +144,23 @@
 
                 <!-- RIGHT: OPTIONAL (QR / META) -->
                 <div class="header-right">
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=70x70&data={{ $inward->inward_no }}">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=70x70&data={{ $estimate->estimate_no }}">
                 </div>
             </div>
 
-            <div class="title">Material Inward</div>
+            <div class="title">Estimate</div>
 
             <!-- DETAILS -->
             <table class="header-table">
                 <tr>
                     <td>
-                        Inward No: <strong>{{ $inward->inward_no }}</strong><br>
-                        Date: <strong>{{ date('d-m-Y', strtotime($inward->in_date)) }}</strong><br>
-                        Vendor: <strong>{{ $inward->vendor->name ?? '' }}</strong>
+                        Estimate No: <strong>{{ $estimate->estimate_no }}</strong><br>
+                        Date: <strong>{{ date('d-m-Y', strtotime($estimate->estimate_date)) }}</strong><br>
+                        Client: <strong>{{ $estimate->client->name ?? '' }}</strong>
                     </td>
                     <td>
-                        Warehouse: <strong>{{ $inward->warehouse->name ?? '' }}</strong><br>
-                        Vendor Ref: <strong>{{ $inward->vendor_inward_no }}</strong>
+                        Remarks: <strong>{{ $estimate->remarks }}</strong><br>
+                        Vendor Ref: <strong>{{ $estimate->vendor_inward_no }}</strong>
                     </td>
                 </tr>
             </table>
@@ -188,7 +188,7 @@
                     $totalGST = 0;
                 @endphp
 
-                @foreach($inward->materialInwardItems as $i => $item)
+                @foreach($estimate->estimateItems as $i => $item)
                 @php
                     $gstRate = $item->gst ?? 0;
                     $gstAmount = ($item->amount * $gstRate) / 100;
@@ -254,15 +254,15 @@
                 Grand Total: {{ number_format($totalAmount + $totalGST,2) }}
             </h3>
 
-            <p><strong>Remarks:</strong> {{ $inward->remarks }}</p>
+            <p><strong>Remarks:</strong> {{ $estimate->remarks }}</p>
 
             <!-- FOOTER -->
             <div class="footer">
                 <table width="100%">
                     <tr>
                         <td>
-                        Printed: {{ $inward->created_at->format('d-m-Y H:i') }}<br>
-                        Created By: {{ $inward->createdByUser->name ?? '' ?? 'System' }}
+                        Printed: {{ $estimate->created_at->format('d-m-Y H:i') }}<br>
+                        Created By: {{ $estimate->createdByUser->name ?? '' ?? 'System' }}
                         </td>
 
                         <td style="text-align:right">

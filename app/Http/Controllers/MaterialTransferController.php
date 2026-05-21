@@ -58,7 +58,9 @@ class MaterialTransferController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $item = MaterialTransfer::find($id);
+        $items = MaterialTransferItem::where('material_transfer_id', $id)->get();
+        return view('materialtransfer.print', compact('item', 'items'));
     }
 
     /**

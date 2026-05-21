@@ -55,6 +55,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/category/{id}/destroy', [CategoryController::class, 'destroy'])->name('category.destroy');
     Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
 
+
     Route::post('/subcategory/store', [SubCategoryController::class, 'store'])->name('subcategory.store');
     Route::get('/subcategory/form', [SubCategoryController::class, 'create'])->name('subcategory.create');
     Route::get('/subcategory/list', [SubCategoryController::class, 'index'])->name('subcategory.list');
@@ -104,9 +105,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/po-supplier/{id}/form', [PoSupplierController::class, 'edit'])->name('po.supplier.edit');
     Route::post('/po-supplier/{id}/update', [PoSupplierController::class, 'update'])->name('po.supplier.update');
     Route::delete('/po-supplier/{id}/destroy', [PoSupplierController::class, 'destroy'])->name('po.supplier.destroy');
-
     Route::post('/po-supplier/items/store', [PoSupplierController::class, 'storeItem'])->name('po.supplier.items.store');
     Route::post('/po-supplier/items/{id}/destroy', [PoSupplierController::class, 'deleteItem'])->name('po.supplier.items.destroy');
+    Route::get('/po-supplier/{id}/print', [PoSupplierController::class, 'show'])->name('po.supplier.print');
 
     Route::post('/po-job-work/store', [PoJobWorkController::class, 'store'])->name('po.job.work.store');
     Route::get('/po-job-work/form', [PoJobWorkController::class, 'create'])->name('po.job.work.create');
@@ -114,6 +115,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/po-job-work/{id}/form', [PoJobWorkController::class, 'edit'])->name('po.job.work.edit');
     Route::post('/po-job-work/{id}/update', [PoJobWorkController::class, 'update'])->name('po.job.work.update');
     Route::delete('/po-job-work/{id}/destroy', [PoJobWorkController::class, 'destroy'])->name('po.job.work.destroy');
+    Route::get('/po-job-work/{id}/print', [PoJobWorkController::class, 'show'])->name('po.job.work.print');
 
     Route::post('/po-job-work/items/store', [PoJobWorkController::class, 'storeItem'])->name('po.job.work.items.store');
     Route::post('/po-job-work/items/{id}/destroy', [PoJobWorkController::class, 'deleteItem'])->name('po.job.work.items.destroy');

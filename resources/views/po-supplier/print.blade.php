@@ -1,131 +1,132 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>@yield('title') Print</title>
+        <title>PO Supplier Print
+        
+        </title>
         <style>
-            @page {
-                size: A4;
-                margin: 12mm;
-            }
+        @page {
+            size: A4;
+            margin: 12mm;
+        }
 
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+        }
+
+        .company-header {
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid #000;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+
+        .header-left {
+            width: 20%;
+        }
+
+        .header-left img {
+            max-height: 60px;
+        }
+
+        .header-center {
+            width: 60%;
+            text-align: center;
+        }
+
+        .company-name {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .company-address {
+            font-size: 12px;
+        }
+
+        .header-right {
+            width: 20%;
+            text-align: right;
+            font-size: 11px;
+        }
+
+        .title {
+            text-align: center;
+            font-weight: bold;
+            margin: 8px 0;
+        }
+
+        .header-table {
+            width: 100%;
+        }
+
+        .header-table td {
+            padding: 4px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .table th, .table td {
+            border: 1px solid #000;
+            padding: 6px;
+        }
+
+        .table th {
+            text-align: center;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+        .total-row {
+            font-weight: bold;
+            background: #f2f2f2;
+        }
+
+        .footer {
+            width: 100%;
+            font-size: 11px;
+        }
+
+        .page-break {
+            page-break-after: always;
+        }
+
+        .a4-container {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 20px auto;
+            padding: 12mm;
+            background: #fff;
+            box-shadow: 0 0 8px rgba(0,0,0,0.2);
+            box-sizing: border-box;
+        }
+
+        /* Print mode */
+        @media print {
             body {
-                font-family: Arial, sans-serif;
-                font-size: 12px;
-            }
-
-            .company-header {
-                display: flex;
-                align-items: center;
-                border-bottom: 2px solid #000;
-                padding-bottom: 10px;
-                margin-bottom: 10px;
-            }
-
-            .header-left {
-                width: 20%;
-            }
-
-            .header-left img {
-                max-height: 60px;
-            }
-
-            .header-center {
-                width: 60%;
-                text-align: center;
-            }
-
-            .company-name {
-                font-size: 20px;
-                font-weight: bold;
-            }
-
-            .company-address {
-                font-size: 12px;
-            }
-
-            .header-right {
-                width: 20%;
-                text-align: right;
-                font-size: 11px;
-            }
-
-            .title {
-                text-align: center;
-                font-weight: bold;
-                margin: 8px 0;
-            }
-
-            .header-table {
-                width: 100%;
-            }
-
-            .header-table td {
-                padding: 4px;
-            }
-
-            .table {
-                width: 100%;
-                border-collapse: collapse;
-                margin-top: 10px;
-            }
-
-            .table th, .table td {
-                border: 1px solid #000;
-                padding: 6px;
-            }
-
-            .table th {
-                text-align: center;
-            }
-
-            .right {
-                text-align: right;
-            }
-
-            .total-row {
-                font-weight: bold;
-                background: #f2f2f2;
-            }
-
-            .footer {
-                width: 100%;
-                font-size: 11px;
-            }
-
-            .page-break {
-                page-break-after: always;
+                margin: 0;
+                background: none;
             }
 
             .a4-container {
-                width: 210mm;
-                min-height: 297mm;
-                margin: 20px auto;
-                padding: 12mm;
-                background: #fff;
-                box-shadow: 0 0 8px rgba(0,0,0,0.2);
-                box-sizing: border-box;
+                width: auto;
+                min-height: auto;
+                margin: 0;
+                box-shadow: none;
+                padding: 0;
             }
-
-            /* Print mode */
-            @media print {
-                body {
-                    margin: 0;
-                    background: none;
-                }
-
-                .a4-container {
-                    width: auto;
-                    min-height: auto;
-                    margin: 0;
-                    box-shadow: none;
-                    padding: 0;
-                }
-            }
+        }
         </style>
     </head>
 
     <body>
-
         <div class="a4-container">
             <!-- COMPANY HEADER -->
             <div class="company-header">
@@ -145,22 +146,22 @@
 
                 <!-- RIGHT: OPTIONAL (QR / META) -->
                 <div class="header-right">
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=70x70&data={{ $item->inward_no }}">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=70x70&data={{ $item->po_no }}">
                 </div>
             </div>
 
-            <div class="title">Material Transfer</div>
+            <div class="title">PO Supplier</div>
 
             <!-- DETAILS -->
             <table class="header-table">
                 <tr>
                     <td>
-                        Transfer No: <strong>{{ $item->transfer_no }}</strong><br>
-                        Date: <strong>{{ date('d-m-Y', strtotime($item->transfer_date)) }}</strong><br>
+                        PO No: <strong>{{ $item->po_no }}</strong><br>
+                        Date: <strong>{{ date('d-m-Y', strtotime($item->po_date)) }}</strong><br>
                         Vendor: <strong>{{ $item->vendor->name ?? '' }}</strong>
                     </td>
                     <td>
-                        Warehouse: <strong>{{ $item->warehouse->name ?? '' }}</strong><br>
+                        Remarks: <strong>{{ $item->remarks }}</strong><br>
                         Vendor Ref: <strong>{{ $item->vendor_inward_no }}</strong>
                     </td>
                 </tr>
@@ -189,7 +190,7 @@
                     $totalGST = 0;
                 @endphp
 
-                @foreach($item->materialTransferItems as $i => $item)
+                @foreach($items as $i => $item)
                 @php
                     $gstRate = $item->gst ?? 0;
                     $gstAmount = ($item->amount * $gstRate) / 100;
