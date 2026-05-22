@@ -20,6 +20,12 @@
             <span class="ml-3">Estimates</span>
         </a>
 
+        <!-- SALES INVOICES -->
+        <a class="flex items-center p-3 rounded hover:bg-gray-100" href="{{ route('sale.invoice.list') }}">
+            <i class="fa fa-file-invoice w-5"></i>
+            <span class="ml-3">Sales Invoices</span>
+        </a>
+
         <!-- PROJECTS -->
         <div>
             <button onclick="toggleDropdown(this)"
