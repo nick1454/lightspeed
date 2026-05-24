@@ -13,21 +13,21 @@ return new class extends Migration
     {
         Schema::create('sale_invoices', function (Blueprint $table) {
 
-    $table->id();
+            $table->id();
 
-    $table->string('client');
+            $table->unsignedBigInteger('client_id')->nullable();
 
-    $table->date('invoice_date');
+            $table->date('invoice_date');
 
-    $table->string('invoice_no')->unique();
+            $table->string('invoice_no')->unique();
 
-    $table->decimal('total_amount', 10, 2)->default(0);
+            $table->decimal('total_amount', 10, 2)->default(0);
 
-    $table->unsignedBigInteger('created_by_id')->nullable();
+            $table->unsignedBigInteger('created_by_id')->nullable();
 
-    $table->unsignedBigInteger('updated_by_id')->nullable();
+            $table->unsignedBigInteger('updated_by_id')->nullable();
 
-    $table->timestamps();
+            $table->timestamps();
 
             
         });

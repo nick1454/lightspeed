@@ -43,7 +43,7 @@
                 @foreach ($saleInvoices as $item)
                 <tr class="border-t">
                     <td class="px-4 py-3">{{ $item->invoice_number }}</td>
-                    <td class="px-4 py-3">{{ $item->client->name }}</td>
+                    <td class="px-4 py-3">{{ $item->client?->name }}</td>
                     <td class="px-4 py-3">{{ $item->invoice_date }}</td>
                     <td class="px-4 py-3">{{ $item->due_date }}</td>
                     <td class="px-4 py-3">{{ $item->total }}</td>
@@ -52,6 +52,22 @@
                         <button onclick="deleteItem('{{ $item->invoice_number }}','{{ route("sale.invoice.destroy", $item->id) }}')" class="text-red-600">Delete</button>
                     </td>
                 </tr>
+                @foreach($saleInvoices as $saleInvoice)
+
+                <tr>
+                    <td>{{ $saleInvoice->client }}</td>
+
+                    <td>
+                        <form action="{{ route('sale.invoice.update', $saleInvoice->id) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+
+                            <button type="submit">Update</button>
+                        </form>
+                    </td>
+                </tr>
+
+                @endforeach
                 @endforeach
             </tbody>
         </table>

@@ -24,7 +24,7 @@
     @endif
     <div class="px-6 py-4 border-b flex justify-between items-center">
         <h1 class="text-xl font-semibold">
-            {{ $item->id ? 'Edit Sales Invoice' : 'Create Sales Invoice' }}
+            Sale Invoice Entry
         </h1>
 
         <div class="text-sm text-slate-500">
@@ -32,52 +32,49 @@
         </div>
     </div>
 
-    <form action="{{ route('sale.invoice.update', $item->id) }}" method="post">
-        <div class="p-6 grid md:grid-cols-3 gap-3">
+    <form action="{{ $item && $item->id ? route('sale.invoice.update', $item->id) : route('sale.invoice.store') }}" method="post">
+        <div class="p-6 grid md:grid-cols-4 gap-4">
             @csrf
             <div>
                 <label class="block mb-1 text-sm font-medium">
                     Date
                 </label>
-                <input type="date" id="invoice_date" name="invoice_date" value="{{ $item->invoice_date }}" class="w-full border rounded-xl p-2.5">
+                <input type="date" id="in_date" name="in_date" value="{{ $item->in_date }}" class="w-full border rounded-xl p-2.5">
             </div>
             <div>
-                <label class="block mb-1 text-sm font-medium">Vendor</label>
-                <select class="w-full border rounded-xl p-2.5" id="vendor_id" name="vendor_id">
-                    <option value="">Select Vendor</option>
-                    @foreach($vendors as $vendor)
-                    <option value="{{ $vendor->id }}" {{ $vendor->id == $item->vendor_id ? 'selected' : '' }}>{{ $vendor->name }}</option>
+                <label class="block mb-1 text-sm font-medium">Client</label>
+                <select class="w-full border rounded-xl p-2.5" id="client_id" name="client_id">
+                    <option value="">Select Client</option>
+                    @foreach($clients as $client)
+                    <option value="{{ $client->id }}" {{ $client->id == $item->client_id ? 'selected' : '' }}>{{ $client->name }}</option>
                     @endforeach
                 </select>
             </div>
             <div>
-                <label class="block mb-1 text-sm font-medium">Warehouse</label>
-                <select class="w-full border rounded-xl p-2.5" id="warehouse_id" name="warehouse_id">
-                    <option value="">Select Warehouse</option>
-                    @foreach($warehouses as $warehouse)
-                    <option value="{{ $warehouse->id }}" {{ $warehouse->id == $item->warehouse_id ? 'selected' : '' }}>{{ $warehouse->name }}</option>
-                    @endforeach
-                </select>
-            </div>
+                <label class="block mb-1 text-sm font-medium">
+                    Due Date
+                </label>
+                <input type="date" id="due_date" name="due_date" value="{{ $item->due_date }}" class="w-full border rounded-xl p-2.5">   
+
         </div>
         <div class="px-6">
             <div>
                 <label class="block mb-1 text-sm font-medium">
                     Remarks
                 </label>
-                <textarea id="remarks" name="remark" class="w-full border rounded-xl p-2.5">{{ $item->remark }}</textarea>
+                <textarea id="remarks" name="remarks" class="w-full border rounded-xl p-2.5">{{ $item->remarks }}</textarea>
             </div>
         </div>
         <div class="px-6 py-6">
-            <button id="saveInvoice" type="submit" class="bg-blue-600 text-white px-5 py-2.5 rounded-xl">
-                Save
+            <button id="saveInward" type="submit" class="bg-blue-600 text-white px-5 py-2.5 rounded-xl">
+                Save Item
             </button>
             <button type="button" onclick="resetForm()" class="bg-slate-200 px-5 py-2.5 rounded-xl">
                 Clear
             </button>
-            <a href="{{ route('sale.invoice.list') }}" class="bg-gray-600 text-white px-5 py-2.5 rounded-xl">
-                Back 
-            </a>
+            <a href="{{ route('materialinward.list') }}" class="bg-gray-600 text-white px-5 py-2.5 rounded-xl">
+                Back
+            </a>    
         </div>
     </form>
 </div>
@@ -91,11 +88,12 @@
 
     <div class="p-6">
         <!-- item editor -->
-        <form action="{{ route('po.supplier.items.store') }}" method="post">
+        <form action="{{ route('materialinward.items.store') }}" method="post">
             @csrf
             <input type="hidden" id="item_id" name="item_id" value="">
             <input type="hidden" id="material_id" name="material_id" value="{{ $item->id }}">
-            <input type="hidden" id="po_supplier_id" name="po_supplier_id" value="{{ $item->id }}">
+            <input type="hidden" id="sale_invoice_id" name="sale_invoice_id" value="{{ $item->id }}">
+            
 
             <div class="grid md:grid-cols-12 gap-4 items-end">
 
@@ -105,18 +103,18 @@
                 <input id="material_search" name="material_name" autocomplete="on" placeholder="Search material" class="w-full border rounded-xl p-2.5">
 
                 <div id="searchResults" style="z-index: 100;"
-                    class="hidden absolute top-full left-0 right-0 bg-white border rounded-xl shadow mt-1 max-h-60 overflow-scroll z-50">
+                    class="hidden absolute top-full left-0 right-0 bg-white border rounded-xl shadow mt-1 max-h-60 overflow-y-scroll z-50">
                 </div>
             </div>
 
             <div class="md:col-span-2">
                 <label class="block text-sm mb-1">Qty</label>
-                <input id="qty" name="quantity" value="" type="number" class="w-full border rounded-xl p-2.5">
+                <input id="qty" name="quantity" value="1.00" type="number" class="w-full border rounded-xl p-2.5">
             </div>
 
             <div class="md:col-span-2">
                 <label class="block text-sm mb-1">Rate</label>
-                <input id="rate" name="rate" value="" type="number" class="w-full border rounded-xl p-2.5">
+                <input id="rate" name="rate" value="0.00" type="number" class="w-full border rounded-xl p-2.5">
             </div>
 
             <div class="md:col-span-3 flex gap-3">
@@ -163,27 +161,27 @@
         </thead>
 
         <tbody id="itemTableBody">
-            @foreach ($items as $poSupplierItem)
-            <tr class="border-t" id="itemRow_{{ $poSupplierItem->id }}">
-                <td class="p-4" id="material_name_{{ $poSupplierItem->id }}">
-                    <span id="item_id_{{ $poSupplierItem->id }}" class="hidden">{{ $poSupplierItem->id }}</span>
-                    <span id="material_id_{{ $poSupplierItem->id }}" class="hidden">{{ $poSupplierItem->material_id }}</span>
-                    {{ $poSupplierItem->material_name }}
+            @foreach ($item->items as $inwardItems)
+            <tr class="border-t" id="itemRow_{{ $inwardItems->id }}">
+                <td class="p-4" id="material_name_{{ $inwardItems->id }}">
+                    <span id="item_id_{{ $inwardItems->id }}" class="hidden">{{ $inwardItems->id }}</span>
+                    <span id="material_id_{{ $inwardItems->id }}" class="hidden">{{ $inwardItems->material_id }}</span>
+                    {{ $inwardItems->material_name }}
                 </td>
-                <td class="p-4" id="quantity_{{ $poSupplierItem->id }}">
-                    {{ $poSupplierItem->quantity }}
+                <td class="p-4" id="quantity_{{ $inwardItems->id }}">
+                    {{ $inwardItems->quantity }}
                 </td>
-                <td class="p-4" id="rate_{{ $poSupplierItem->id }}">
-                    {{ $poSupplierItem->rate }}
+                <td class="p-4" id="rate_{{ $inwardItems->id }}">
+                    {{ $inwardItems->rate }}
                 </td>
-                <td class="p-4" id="amount_{{ $poSupplierItem->id }}">
-                    {{ $poSupplierItem->amount }}
+                <td class="p-4" id="amount_{{ $inwardItems->id }}">
+                    {{ $inwardItems->amount }}
                 </td>
                 <td class="p-4">
-                    <button type="button" onclick="editItem({{ $poSupplierItem->id }})" class="bg-blue-600 text-white px-2 py-1 rounded-full">
+                    <button type="button" onclick="editItem({{ $inwardItems->id }})" class="bg-blue-600 text-white px-2 py-1 rounded-full">
                         Edit
                     </button>
-                    <button type="button" onclick="deleteItem({{ $poSupplierItem->id }})" class="bg-red-600 text-white px-2 py-1 rounded-full">
+                    <button type="button" onclick="deleteItem({{ $inwardItems->id }})" class="bg-red-600 text-white px-2 py-1 rounded-full">
                         Delete
                     </button>
                 </td>
@@ -284,67 +282,6 @@
     SAVE / UPDATE ITEM
     ===================== */
 
-    async function saveItem() {
-        let payload={
-            material_id: material_id.value,
-            quantity: qty.value,
-            rate: rate.value
-        };
-
-        if(!payload.material_id){
-            alert('Select material');
-            return;
-        }
-
-        let editId = document.getElementById('item_id').value;
-
-        let method='POST';
-        let url=`/material-in/${materialInId}/items`;
-
-        if(editId) {
-            method='PUT';
-            url=`/material-in/items/${editId}`;
-        }
-
-        try {
-            /* REAL AJAX
-            const res=await fetch(url,{
-            method,
-            headers:{
-            'Content-Type':'application/json',
-            'X-CSRF-TOKEN':csrf
-            },
-            body:JSON.stringify(payload)
-            });
-
-            const data=await res.json();
-            let item=data.item;
-            */
-
-            /* mock response */
-            let item = {
-                id: editId || Date.now(),
-                material_id:payload.material_id,
-                material_name:searchInput.value,
-                qty:parseFloat(payload.quantity),
-                rate:parseFloat(payload.rate),
-                amount: payload.quantity*payload.rate
-            };
-
-            if (editId) {
-                let i=items.findIndex(x=>x.id==editId);
-                items[i]=item;
-            } else {
-                items.push(item);
-            }
-
-            renderItems();
-            resetForm();
-        } catch(e) {
-            console.error(e);
-        }
-    }
-
     function editItem (id) {
         let item_id1 = document.getElementById(`item_id_${id}`).innerText;
         let material_id = document.getElementById(`material_id_${id}`).innerText;
@@ -371,7 +308,7 @@
         if (!confirm('Delete item?')) return;
         console.log(id);
         try {
-            delete_item_form.action = '/po-supplier/items/'+id+'/destroy';
+            delete_item_form.action = '/materialinward/items/'+id+'/destroy';
             await delete_item_form.submit();
         } catch(e){
             console.error(e);

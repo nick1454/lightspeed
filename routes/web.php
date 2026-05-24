@@ -199,12 +199,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/client/items/{id}/destroy', [ClientController::class, 'deleteItem'])->name('client.items.destroy');
 
 
-    Route::get('/saleinvoice', [SaleInvoiceController::class, 'index']);
+    Route::get('/sale-invoice', [SaleInvoiceController::class, 'index']);
     Route::post('/sale-invoice/store', [SaleInvoiceController::class, 'store'])->name('sale.invoice.store');
     Route::get('/sale-invoice/form', [SaleInvoiceController::class, 'create'])->name('sale.invoice.create');
     Route::get('/sale-invoice/list', [SaleInvoiceController::class, 'index'])->name('sale.invoice.list');
     Route::get('/sale-invoice/{id}/form', [SaleInvoiceController::class, 'edit'])->name('sale.invoice.edit');
-    Route::post('/sale-invoice/{id}/update', [SaleInvoiceController::class, 'update'])->name('sale.invoice.update');
+    Route::put('/sale-invoice/{id}/update', [SaleInvoiceController::class, 'update'])->name('sale.invoice.update');
     Route::delete('/sale-invoice/{id}/destroy', [SaleInvoiceController::class, 'destroy'])->name('sale.invoice.destroy');
     Route::post('/sale-invoice/items/store', [SaleInvoiceController::class, 'storeItem'])->name('sale.invoice.items.store');
     Route::post('/sale-invoice/items/{id}/destroy', [SaleInvoiceController::class, 'deleteItem'])->name('sale.invoice.items.destroy');
